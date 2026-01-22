@@ -1,32 +1,6 @@
+import type { User, Product } from '../service/interface';
 
-import React, { useState } from 'react';
-import { Eye, EyeOff, ShoppingCart, Minus, CheckCircle } from 'lucide-react';
-
-// Types
-interface User {
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  token: string;
-}
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  thumbnail: string;
-  category: string;
-  discountPercentage: number;
-}
-
-interface CartItem extends Product {
-  quantity: number;
-}
-
-// API Service
-const api = {
+export const api = {
   login: async (username: string, password: string): Promise<User> => {
     const response = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
