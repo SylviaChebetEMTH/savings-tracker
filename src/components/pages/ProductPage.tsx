@@ -44,14 +44,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ user, onLogout }) => {
         }
     };
 
-    const handlePayment = () => {
-        const totalDeduction = calculateTotalDeduction();
-
-        if (totalDeduction <= walletBalance) {
-            setShowConfirmation(true);
-            setCart([]);
-        }
-    };
     const handleProceedToSummary = () => {
         if (cart.length === 0) return;
 

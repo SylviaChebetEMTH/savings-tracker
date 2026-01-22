@@ -1,32 +1,34 @@
 import React, { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import type { CartItem } from '../../service/interface';
-import { useCart } from '../context/CartContext';
 import ConfirmationModal from './ConfirmModal';
 
 interface SummaryPageProps {
+  cart: CartItem[];
+  totalDeduction: number;
   onBack: () => void;
   onConfirmPayment: (verificationCode: string) => void;
   showSuccess?: boolean;
+  onDone?: () => void;
+  onLogout?: () => void;
 }
 
 const SummaryPage: React.FC<SummaryPageProps> = ({
+  cart,
+  totalDeduction,
   onBack,
   onConfirmPayment,
   showSuccess = false,
+  onDone,
+  onLogout,
 }) => {
-  const { cart, calculateTotalDeduction } = useCart();
   const [verificationCode, setVerificationCode] = useState<string[]>(['', '', '', '', '', '']);
   const [canResend, setCanResend] = useState(false);
-  const [countdown, setCountdown] = useState(90); // 1min 30sec
-
+  const [countdown, setCountdown] = useState(90); 
 
   const calculateTotal = (item: CartItem) => item.price * item.quantity;
   const calculateDeduction = (item: CartItem) =>
     Math.round((item.price * item.quantity * item.discountPercentage) / 100);
-
-  const totalDeduction = calculateTotalDeduction();
-
 
   React.useEffect(() => {
     if (countdown > 0) {
@@ -45,7 +47,6 @@ const SummaryPage: React.FC<SummaryPageProps> = ({
     newCode[index] = value;
     setVerificationCode(newCode);
 
-    
     if (value && index < 5) {
       const nextInput = document.getElementById(`code-${index + 1}`);
       nextInput?.focus();
@@ -61,7 +62,12 @@ const SummaryPage: React.FC<SummaryPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 relative">
+      <ConfirmationModal 
+        show={showSuccess} 
+        onDone={onDone || (() => {})}
+        onLogout={onLogout || (() => {})}
+      />
    
       <header className="bg-gradient-to-r from-yellow-700 to-yellow-600 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-6 py-4">
@@ -71,7 +77,6 @@ const SummaryPage: React.FC<SummaryPageProps> = ({
 
       <div className="max-w-4xl mx-auto px-6 py-8">
         <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
-       
           <div className="flex items-center gap-3 text-sm text-gray-600 mb-6">
             <button
               onClick={onBack}
@@ -133,7 +138,6 @@ const SummaryPage: React.FC<SummaryPageProps> = ({
             </div>
           </div>
 
-          
           <div className="mb-8">
             <p className="text-gray-700 mb-3">
               Enter the <strong>verification code</strong> sent to the parent at{' '}
@@ -172,7 +176,6 @@ const SummaryPage: React.FC<SummaryPageProps> = ({
             </div>
           </div>
 
-         
           <div className="flex flex-col sm:flex-row gap-4 justify-end items-center">
             <button
               onClick={onBack}
@@ -189,16 +192,12 @@ const SummaryPage: React.FC<SummaryPageProps> = ({
             </button>
           </div>
 
-          {/* Warning */}
           <p className="mt-6 text-center text-red-600 text-sm">
             You will receive {totalDeduction.toFixed(2)} kes from the subsidy program. If this does
             not cover the total cost of the purchase ensure you get the balance from the customer.
           </p>
         </div>
       </div>
-
-  
-      <ConfirmationModal show={showSuccess} />
     </div>
   );
 };
