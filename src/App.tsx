@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import type { User } from './components/service/interface';
+import type { User } from './service/interface';
 import { CartProvider, useCart } from './components/context/CartContext';
 import LoginPage from './components/forms/LoginForm';
 import ProductsPage from './components/pages/ProductPage';

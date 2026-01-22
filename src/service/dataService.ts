@@ -1,4 +1,4 @@
-import type { User, Product } from '../service/interface';
+import type { User, Product } from './interface';
 
 export const api = {
   login: async (username: string, password: string): Promise<User> => {

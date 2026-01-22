@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
-import type { CartItem } from '../service/interface';
+import type { CartItem } from '../../service/interface';
 import { useCart } from '../context/CartContext';
 import ConfirmationModal from './ConfirmModal';
 

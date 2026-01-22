@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShoppingCart } from 'lucide-react';
-import type { Product } from '../service/interface';
+import type { Product } from '../../service/interface';
 
 interface ProductCardProps {
   product: Product;

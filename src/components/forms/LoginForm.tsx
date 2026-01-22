@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
-import type { User } from '../service/interface';
-import { api } from '../service/dataService';
+import type { User } from '../../service/interface';
+import { api } from '../../service/dataService';
 
 interface LoginPageProps {
   onLogin: (user: User) => void;

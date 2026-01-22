@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft } from 'lucide-react';
-import type { User, Product } from '../service/interface';
-import { api } from '../service/dataService';
+import type { User, Product } from '../../service/interface';
+import { api } from '../../service/dataService';
 import ConfirmationModal from './ConfirmModal';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
